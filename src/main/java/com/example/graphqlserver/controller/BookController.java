@@ -36,6 +36,11 @@ public class BookController {
         return bookRepository.getBookByISBN(isbn);
     }
 
+    @QueryMapping
+    public List<Book> booksByAuthorId(@Argument("authorId") int authorId) {
+        return bookRepository.getBooksByAuthorId(authorId);
+    }
+
     @MutationMapping
     public AddBookPayload addBook(@Argument AddBookInput input) {
         Author author = authorRepository.getAuthorById(input.authorId());

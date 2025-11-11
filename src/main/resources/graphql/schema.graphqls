@@ -11,6 +11,9 @@ type Query {
 
     # Fetch a book by its ISBN (International Standard Book Number).
     bookByISBN(isbn: String): Book
+
+    # Fetch a list of books by an author's unique ID
+    booksByAuthorId(authorId: ID): [Book]
 }
 
 # Represents a book in the system.
