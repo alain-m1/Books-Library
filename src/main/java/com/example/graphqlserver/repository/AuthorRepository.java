@@ -34,6 +34,23 @@ public class AuthorRepository {
         return null;
     }
 
+    public List<Author> getAuthorsByLastName(String lastName) {
+        if (lastName == null || lastName.trim().isEmpty()) {
+            return new ArrayList<>();
+        }
+
+        List<Author> authors = new ArrayList<>();
+        String lowerCaseSearch = lastName.toLowerCase().trim();
+
+        for (Author author : dummyAuthors) {
+            if (author.getLastName().toLowerCase().equals(lowerCaseSearch)) {
+                authors.add(author);
+            }
+        }
+
+        return authors;
+    }
+
     public Author save(String firstName, String lastName) {
         List<Book> book = new ArrayList<>();
         int nextId = dummyAuthors.isEmpty() ? 0 : dummyAuthors.get(dummyAuthors.size() - 1).getId() + 1;

@@ -17,6 +17,9 @@ type Query {
 
     # Fetch a list of books by a substring of the title
     booksByTitleSubstring(titleSubstring: String): [Book]
+
+    # Fetch a list of authors by a last name
+    authorsByLastName(lastName: String): [Author]
 }
 
 # Represents a book in the system.

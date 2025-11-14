@@ -38,4 +38,9 @@ public class AuthorController {
         var out = new AddAuthorPayload(author);
         return out;
     }
+
+    @QueryMapping
+    public List<Author> authorsByLastName(@Argument("lastName") String lastName) {
+        return authorRepository.getAuthorsByLastName(lastName);
+    }
 }
