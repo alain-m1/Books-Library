@@ -20,6 +20,9 @@ type Query {
 
     # Fetch a list of authors by a last name
     authorsByLastName(lastName: String): [Author]
+
+    # Fetch a list of book titles by author first name
+    booksByAuthorFirstName(firstName: String): [String]
 }
 
 # Represents a book in the system.

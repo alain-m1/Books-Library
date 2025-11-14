@@ -12,6 +12,7 @@ import org.springframework.graphql.data.method.annotation.MutationMapping;
 import org.springframework.graphql.data.method.annotation.QueryMapping;
 import org.springframework.stereotype.Controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.example.graphqlserver.dto.output.DeleteBookPayload;
@@ -45,7 +46,7 @@ public class BookController {
 
     @QueryMapping
     public List<Book> booksByTitleSubstring(@Argument("titleSubstring") String titleSubstring) {
-        return bookRepository.getBooksbyTitleSubstring(titleSubstring);
+        return bookRepository.getBooksByTitleSubstring(titleSubstring);
     }
 
     @MutationMapping
@@ -68,5 +69,28 @@ public class BookController {
 
         String deletedIsbn = bookRepository.deleteBookByISBN(isbn);
         return new DeleteBookPayload(deletedIsbn);
+    }
+
+    @QueryMapping
+    public List<String> booksByAuthorFirstName(@Argument("firstName") String firstName) {
+        if (firstName == null || firstName.isEmpty()) {
+            return new ArrayList<>();
+        }
+
+        List<Author> authors = authorRepository.getAuthorsByFirstName(firstName);
+
+        if (authors.isEmpty()) {
+            return new ArrayList<>();
+        }
+
+        List<String> bookTitles = new ArrayList<>();
+        for (Author author : authors) {
+            List<Book> books = bookRepository.getBooksByAuthorId(author.getId());
+            for (Book book : books) {
+                bookTitles.add(book.getTitle());
+            }
+        }
+
+        return bookTitles;
     }
 }

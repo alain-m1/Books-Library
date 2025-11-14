@@ -50,7 +50,7 @@ public class BookRepository {
         return bookList;
     }
 
-    public static ArrayList<Book> getBooksbyTitleSubstring(String titleSubstring) {
+    public static ArrayList<Book> getBooksByTitleSubstring(String titleSubstring) {
         if (titleSubstring == null || titleSubstring.isEmpty()) {
             return new ArrayList<>();
         }
