@@ -14,6 +14,8 @@ import org.springframework.stereotype.Controller;
 
 import java.util.List;
 
+import com.example.graphqlserver.dto.output.DeleteBookPayload;
+
 @Controller
 public class BookController {
 
@@ -56,5 +58,15 @@ public class BookController {
         author.getBooks().add(book);
         var out = new AddBookPayload(book);
         return out;
+    }
+
+    @MutationMapping
+    public DeleteBookPayload deleteBook(@Argument("isbn")  String isbn) {
+        if (isbn == null || isbn.isEmpty()) {
+            return new DeleteBookPayload(null);
+        }
+
+        String deletedIsbn = bookRepository.deleteBookByISBN(isbn);
+        return new DeleteBookPayload(deletedIsbn);
     }
 }

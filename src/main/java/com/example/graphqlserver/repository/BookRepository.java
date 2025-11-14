@@ -67,4 +67,19 @@ public class BookRepository {
         return bookList;
     }
 
+    public String deleteBookByISBN(String isbn) {
+        if (isbn == null || isbn.trim().isEmpty()) {
+            return null;
+        }
+
+        for (Book book : dummyBooks) {
+            if (book.getIsbn().equals(isbn)) {
+                dummyBooks.remove(book);
+                return isbn;
+            }
+        }
+
+        return null;
+    }
+
 }

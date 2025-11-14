@@ -88,6 +88,11 @@ type AddBookPayload {
     book: Book
 }
 
+# Payload returned after successfully deleting a book
+type DeleteBookPayload {
+    isbn: String
+}
+
 # The root Mutation type defines the entry points for mutating data.
 type Mutation {
     # Add a new author to the system.
@@ -98,4 +103,7 @@ type Mutation {
 
     # Update an author's last name by ID
     updateAuthorLastName(id: ID, newLastName: String): UpdateAuthorLastNamePayload
+
+    # Delete a book by ISBN
+    deleteBook(isbn: String): DeleteBookPayload
 }
