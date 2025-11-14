@@ -76,6 +76,12 @@ type AddAuthorPayload {
     author: Author
 }
 
+# Payload returned after successfully updating an author's last name
+type UpdateAuthorLastNamePayload {
+    # The old last name to return
+    oldLastName: String
+}
+
 # Payload returned after successfully adding a book.
 type AddBookPayload {
     # The newly added book.
@@ -89,4 +95,7 @@ type Mutation {
 
     # Add a new book to the system.
     addBook(input: AddBookInput): AddBookPayload
+
+    # Update an author's last name by ID
+    updateAuthorLastName(id: ID, newLastName: String): UpdateAuthorLastNamePayload
 }

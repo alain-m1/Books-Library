@@ -51,6 +51,32 @@ public class AuthorRepository {
         return authors;
     }
 
+    public String updateAuthorLastname(int id, String newLastName) {
+        if (newLastName == null || newLastName.trim().isEmpty()) {
+            return null;
+        }
+
+        for (Author author : dummyAuthors) {
+            if (author.getId() == id) {
+                String oldLastName = author.getLastName();
+
+                Author updatedAuthor = new Author(
+                        author.getId(),
+                        author.getFirstName(),
+                        newLastName,
+                        author.getBooks()
+                );
+
+                int index = dummyAuthors.indexOf(author);
+                dummyAuthors.set(index, updatedAuthor);
+
+                return oldLastName;
+            }
+        }
+
+        return null;
+    }
+
     public Author save(String firstName, String lastName) {
         List<Book> book = new ArrayList<>();
         int nextId = dummyAuthors.isEmpty() ? 0 : dummyAuthors.get(dummyAuthors.size() - 1).getId() + 1;

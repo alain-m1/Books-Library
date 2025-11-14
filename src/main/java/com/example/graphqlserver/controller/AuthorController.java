@@ -12,6 +12,8 @@ import org.springframework.stereotype.Controller;
 
 import java.util.List;
 
+import com.example.graphqlserver.dto.output.UpdateAuthorLastNamePayload;
+
 @Controller
 public class AuthorController {
 
@@ -42,5 +44,15 @@ public class AuthorController {
     @QueryMapping
     public List<Author> authorsByLastName(@Argument("lastName") String lastName) {
         return authorRepository.getAuthorsByLastName(lastName);
+    }
+
+    @MutationMapping
+    public UpdateAuthorLastNamePayload updateAuthorLastName(@Argument("id") Integer id, @Argument("newLastName") String newLastName) {
+        if (id == null || newLastName == null || newLastName.trim().isEmpty()) {
+            return new UpdateAuthorLastNamePayload(null);
+        }
+
+        String oldLastName = authorRepository.updateAuthorLastname(id, newLastName);
+        return new UpdateAuthorLastNamePayload(oldLastName);
     }
 }
