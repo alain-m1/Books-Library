@@ -50,4 +50,21 @@ public class BookRepository {
         return bookList;
     }
 
+    public static ArrayList<Book> getBooksbyTitleSubstring(String titleSubstring) {
+        if (titleSubstring == null || titleSubstring.isEmpty()) {
+            return new ArrayList<>();
+        }
+
+        ArrayList<Book> bookList = new ArrayList<>();
+        String lowerCaseSearch = titleSubstring.toLowerCase();
+
+        for (Book book : dummyBooks) {
+            if (book.getTitle().toLowerCase().contains(lowerCaseSearch)) {
+                bookList.add(book);
+            }
+        }
+
+        return bookList;
+    }
+
 }
